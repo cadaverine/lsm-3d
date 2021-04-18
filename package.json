@@ -1,0 +1,22 @@
+{
+  "name": "lsm-nuxt",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "ant-design-vue": "^1.7.4",
+    "core-js": "^3.9.1",
+    "fs": "*",
+    "nuxt": "^2.15.3",
+    "plotly.js": "^1.58.4",
+    "plotly.js-gl3d-dist": "^1.58.4"
+  },
+  "browser": {
+    "image-size": false
+  }
+}
