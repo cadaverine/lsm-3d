@@ -1,20 +1,6 @@
-# lsm-nuxt
+## Курсовой проект по математическому моделированию
 
-## Build Setup
+#### Алгоритм и программная реализация среднеквадратичного приближения в двумерном варианте полиномами первой и второй степени
 
-```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Приложение размещено:
+https://cadaverine.github.io/lsm-3d/
