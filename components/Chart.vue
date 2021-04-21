@@ -7,7 +7,7 @@
 <script>
 import Plotly from "plotly.js-gl3d-dist";
 import config from "./plotlyConfig.js";
-import { getCoordsByLSMv2, getCoordsByLSM } from "@/assets/getCoordsByLSM.js";
+import { getCoordsByLSM, getSurfaceCoords } from "@/assets/getCoordsByLSM.js";
 
 export default {
   props: {
@@ -43,11 +43,12 @@ export default {
   },
   methods: {
     drawPlot(points, degree) {
-      let { layout, mesh, scatterOrig, scatterAppr } = config;
+      let { layout, mesh, scatterOrig, scatterAppr, surface } = config;
 
       let { X, Y, Z, Ro } = this.points;
 
       let coords = getCoordsByLSM(X, Y, Z, Ro, degree);
+      let sCoords = getSurfaceCoords(X, Y, Z, Ro, degree);
 
       // approximaxion
       mesh.x = coords.X;
@@ -62,17 +63,21 @@ export default {
       scatterOrig.y = Y;
       scatterOrig.z = Z;
 
+      surface.x = sCoords.X;
+      surface.y = sCoords.Y;
+      surface.z = sCoords.Z;
+
       if (this.plotCreated === false) {
         Plotly.newPlot(
           this.$refs.plot,
-          [mesh, scatterOrig, scatterAppr],
+          [scatterOrig, scatterAppr, surface],
           layout
         );
         this.plotCreated = true;
       } else {
         Plotly.update(
           this.$refs.plot,
-          [mesh, scatterOrig, scatterAppr],
+          [scatterOrig, scatterAppr, surface],
           layout
         );
       }

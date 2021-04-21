@@ -65,7 +65,29 @@ export function getApproximatingFunction(xArray, yArray, zArray, pArray, N) {
   const matrix = assemblySumsMatrix(xArray, yArray, zArray, pArray, N);
   const coefs = gaussSweepMethod(matrix);
 
-  return function(x, y) {
+  let str;
+  let fixedLen = 4;
+
+  if (N === 1) {
+    let c1 = coefs[0].toFixed(fixedLen);
+    let c2 = coefs[1].toFixed(fixedLen);
+    let c3 = coefs[2].toFixed(fixedLen);
+
+    str = `P(x,y) = ${c1} + ${c2}x + ${c3}y`;
+  } else if (N === 2) {
+    let c1 = coefs[0].toFixed(fixedLen);
+    let c2 = coefs[1].toFixed(fixedLen);
+    let c3 = coefs[2].toFixed(fixedLen);
+    let c4 = coefs[3].toFixed(fixedLen);
+    let c5 = coefs[4].toFixed(fixedLen);
+    let c6 = coefs[5].toFixed(fixedLen);
+
+    str = `P(x,y) = ${c1} + ${c2}x + ${c3}y + ${c4}xy + ${c5}x^2 + ${c6}y^2`;
+  }
+
+  console.log(str);
+
+  let polynome = (x, y) => {
     let z = 0;
 
     for (let i = 0; i < N * 3; i++) {
@@ -74,6 +96,11 @@ export function getApproximatingFunction(xArray, yArray, zArray, pArray, N) {
 
     return z;
   };
+
+  return {
+    polynome,
+    str
+  };
 }
 
 // N - степень полинома
@@ -81,11 +108,11 @@ export function getApproximatingFunction(xArray, yArray, zArray, pArray, N) {
 function assemblySumsMatrix(xArray, yArray, zArray, pArray, N) {
   let funcs = [
     (x, y) => 1, // x^0 * y^0
-    (x, y) => Number(x), // x^1 * y^0
-    (x, y) => Number(y), // x^0 * x^1
-    (x, y) => Number(x) * Number(y), // x^1 * y^1
-    (x, y) => Number(x) ** 2, // x^2 * y^0
-    (x, y) => Number(y) ** 2 // x^0 * y^2
+    (x, y) => x, // x^1 * y^0
+    (x, y) => y, // x^0 * x^1
+    (x, y) => x * y, // x^1 * y^1
+    (x, y) => x ** 2, // x^2 * y^0
+    (x, y) => y ** 2 // x^0 * y^2
   ];
 
   // количество слагаемых в полиноме
@@ -107,9 +134,6 @@ function assemblySumsMatrix(xArray, yArray, zArray, pArray, N) {
 
         matrix[i][j] +=
           pArray[k] * fi(xArray[k], yArray[k]) * fj(xArray[k], yArray[k]);
-        if (isNaN(matrix[i][j])) {
-          debugger;
-        }
       }
     }
 
@@ -119,9 +143,6 @@ function assemblySumsMatrix(xArray, yArray, zArray, pArray, N) {
       let fi = funcs[i];
 
       matrix[i][n] += pArray[k] * zArray[k] * fi(xArray[k], yArray[k]);
-      if (isNaN(matrix[i][n])) {
-        debugger;
-      }
     }
   }
 
