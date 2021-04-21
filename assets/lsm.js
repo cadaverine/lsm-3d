@@ -65,7 +65,7 @@ export function getApproximatingFunction(xArray, yArray, zArray, pArray, N) {
   const matrix = assemblySumsMatrix(xArray, yArray, zArray, pArray, N);
   const coefs = gaussSweepMethod(matrix);
 
-  let str;
+  let text;
   let fixedLen = 4;
 
   if (N === 1) {
@@ -73,7 +73,7 @@ export function getApproximatingFunction(xArray, yArray, zArray, pArray, N) {
     let c2 = coefs[1].toFixed(fixedLen);
     let c3 = coefs[2].toFixed(fixedLen);
 
-    str = `P(x,y) = ${c1} + ${c2}x + ${c3}y`;
+    text = `P(x,y) = ${c1} + ${c2}x + ${c3}y`;
   } else if (N === 2) {
     let c1 = coefs[0].toFixed(fixedLen);
     let c2 = coefs[1].toFixed(fixedLen);
@@ -82,10 +82,8 @@ export function getApproximatingFunction(xArray, yArray, zArray, pArray, N) {
     let c5 = coefs[4].toFixed(fixedLen);
     let c6 = coefs[5].toFixed(fixedLen);
 
-    str = `P(x,y) = ${c1} + ${c2}x + ${c3}y + ${c4}xy + ${c5}x^2 + ${c6}y^2`;
+    text = `P(x,y) = ${c1} + ${c2}x + ${c3}y + ${c4}xy + ${c5}x^2 + ${c6}y^2`;
   }
-
-  console.log(str);
 
   let polynome = (x, y) => {
     let z = 0;
@@ -99,7 +97,7 @@ export function getApproximatingFunction(xArray, yArray, zArray, pArray, N) {
 
   return {
     polynome,
-    str
+    text,
   };
 }
 

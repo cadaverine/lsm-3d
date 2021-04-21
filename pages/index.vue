@@ -11,12 +11,13 @@
         <div class="input_text">
           Degree of a polynomial:
         </div>
-        <select class="input" v-model="polynome.degree">
+        <select class="input" v-model="polynome.degree" @change="updatePolynome">
           <option>1</option>
           <option>2</option>
         </select>
       </div>
     </div>
+    <div class="polynome" v-text="polynome.text"></div>
     <div class="wrapper">
       <Chart :points="points" :polynome="polynome" />
       <Table @valueschange="saveValues" ref="table" />
@@ -27,6 +28,7 @@
 <script>
 import Chart from "../components/Chart.vue";
 import Table from "../components/Table.vue";
+import { getApproximatingFunction } from "@/assets/lsm";
 
 export default {
   components: {
@@ -41,17 +43,29 @@ export default {
       Ro: [1, 1, 1, 1, 1, 1, 1, 1, 1]
     },
     polynome: {
-      degree: 1
+      degree: 1,
+      text: '',
     }
   }),
   methods: {
     saveValues(values) {
+      const { X, Y, Z, Ro } = values;
+
       this.points = {
-        X: values.X,
-        Y: values.Y,
-        Z: values.Z,
-        Ro: values.Ro
+        X: X,
+        Y: Y,
+        Z: Z,
+        Ro: Ro
       };
+
+      this.updatePolynome();
+    },
+    updatePolynome() {
+      const { X, Y, Z, Ro } = this.points;
+
+      const { text } = getApproximatingFunction(X, Y, Z, Ro, Number(this.polynome.degree));
+
+      this.polynome.text = text;
     },
     generateRandomValues() {
       this.$refs.table.generateRandomValues();
@@ -88,6 +102,13 @@ export default {
   color: #333;
 }
 
+.polynome {
+  height: 40px;
+  font-size: 15px;
+  font-weight: 600;
+  color: slateblue;
+}
+
 .wrapper {
   display: flex;
   flex-direction: row;
@@ -98,7 +119,7 @@ export default {
 .buttons {
   display: flex;
   height: 40px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .button {
   font-size: 16px;
