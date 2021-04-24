@@ -96,7 +96,7 @@ export default {
   font-size: 12px;
 }
 .row_header {
-  background-color: #33C4FF;
+  background-color: #33c4ff;
   font-weight: bold;
 }
 .cell_heading {

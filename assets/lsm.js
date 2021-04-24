@@ -97,7 +97,7 @@ export function getApproximatingFunction(xArray, yArray, zArray, pArray, N) {
 
   return {
     polynome,
-    text,
+    text
   };
 }
 

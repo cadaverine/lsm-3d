@@ -27,17 +27,17 @@ export default {
       xaxis: {
         type: "linear",
         // zeroline: false,
-        range: [-5, 15],
+        range: [-5, 15]
       },
       yaxis: {
         type: "linear",
         // zeroline: false,
-        range: [-5, 15],
+        range: [-5, 15]
       },
       zaxis: {
         type: "linear",
         // zeroline: false,
-        range: [-5, 15],
+        range: [-5, 15]
       }
     }
   },
@@ -90,6 +90,6 @@ export default {
     z: [],
     type: "surface",
     opacity: 0.2,
-    showscale: false,
+    showscale: false
   }
 };

@@ -70,6 +70,7 @@
       </a-col>
     </a-row>
     <div class="polynome" v-text="polynome.text"></div>
+    <div class="polynome" v-text="polynome.result"></div>
     <div class="wrapper">
       <Chart :points="points" :polynome="polynome" :X="X" :Y="Y" />
       <Table
@@ -97,19 +98,32 @@ export default {
   },
   data: () => ({
     points: {
-      X: [1, 2, 3, 1, 2, 3, 1, 2, 3],
-      Y: [1, 1, 1, 2, 2, 2, 3, 3, 3],
-      Z: [3.1, 3.15, 3.5, 4.9, 4.65, 4.4, 9.85, 9.4, 11.1],
-      Ro: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+      X: [],
+      Y: [],
+      Z: [],
+      Ro: []
     },
     pointsNumder: 10,
     X: Number(random(0.0, max).toFixed(2)),
     Y: Number(random(0.0, max).toFixed(2)),
     polynome: {
       degree: 1,
-      text: ""
+      text: "",
+      result: ""
     }
   }),
+  watch: {
+    X() {
+      if (!isNaN(parseFloat(this.X))) {
+        this.updatePolynome();
+      }
+    },
+    Y() {
+      if (!isNaN(parseFloat(this.Y))) {
+        this.updatePolynome();
+      }
+    }
+  },
   methods: {
     saveValues(values) {
       const { X, Y, Z, Ro } = values;
@@ -126,7 +140,7 @@ export default {
     updatePolynome() {
       const { X, Y, Z, Ro } = this.points;
 
-      const { text } = getApproximatingFunction(
+      const { text, polynome } = getApproximatingFunction(
         X,
         Y,
         Z,
@@ -135,6 +149,10 @@ export default {
       );
 
       this.polynome.text = text;
+      this.polynome.result = `P(${this.X}, ${this.Y}) = ${polynome(
+        this.X,
+        this.Y
+      ).toFixed(4)}`;
     },
     generateRandomValues() {
       this.$refs.table.generateRandomValues();

@@ -6,14 +6,14 @@ export function getPointsCoords(xArray, yArray, polynome) {
   const xCoords = [];
   const yCoords = [];
 
-  const xMax = Math.ceil(_.max(xArray.map(Number))) + 1
-  const xMin = Math.floor(_.min(xArray.map(Number))) - 1
+  const xMax = Math.ceil(_.max(xArray.map(Number))) + 1;
+  const xMin = Math.floor(_.min(xArray.map(Number))) - 1;
 
-  const yMax = Math.ceil(_.max(yArray.map(Number))) + 1
-  const yMin = Math.floor(_.min(yArray.map(Number))) - 1
+  const yMax = Math.ceil(_.max(yArray.map(Number))) + 1;
+  const yMin = Math.floor(_.min(yArray.map(Number))) - 1;
 
-  const xRange = xMax - xMin
-  const yRange = yMax - yMin
+  const xRange = xMax - xMin;
+  const yRange = yMax - yMin;
 
   let k = 0;
   for (let i = 0; i < xRange; i++) {
@@ -33,25 +33,24 @@ export function getPointsCoords(xArray, yArray, polynome) {
   return {
     X: xCoords,
     Y: yCoords,
-    Z: zCoords,
+    Z: zCoords
   };
 }
 
 // получаем координаты для построения аппроксимирующей поверхности
 export function getSurfaceCoords(xArray, yArray, polynome) {
-  const xMax = Math.ceil(_.max(xArray.map(Number))) + 1
-  const xMin = Math.floor(_.min(xArray.map(Number))) - 1
+  const xMax = Math.ceil(_.max(xArray.map(Number))) + 1;
+  const xMin = Math.floor(_.min(xArray.map(Number))) - 1;
 
-  const yMax = Math.ceil(_.max(yArray.map(Number))) + 1
-  const yMin = Math.floor(_.min(yArray.map(Number))) - 1
+  const yMax = Math.ceil(_.max(yArray.map(Number))) + 1;
+  const yMin = Math.floor(_.min(yArray.map(Number))) - 1;
 
-  const xRange = xMax - xMin
-  const yRange = yMax - yMin
+  const xRange = xMax - xMin;
+  const yRange = yMax - yMin;
 
   const xCoords = [];
   const yCoords = [];
   const zCoords = [];
-
 
   for (let i = 0; i < xRange; i++) {
     xCoords[i] = xMin + i;
@@ -62,16 +61,16 @@ export function getSurfaceCoords(xArray, yArray, polynome) {
   }
 
   for (let [i, y] of yCoords.entries()) {
-    zCoords[i] = []
+    zCoords[i] = [];
 
     for (let [j, x] of xCoords.entries()) {
-      zCoords[i][j] = polynome(x, y)
+      zCoords[i][j] = polynome(x, y);
     }
   }
 
   return {
     X: xCoords,
     Y: yCoords,
-    Z: zCoords,
+    Z: zCoords
   };
 }
