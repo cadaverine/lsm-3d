@@ -30,7 +30,7 @@ export default {
     },
     rowsNumber: {
       type: Number,
-      default: 10
+      default: 15
     }
   },
   data: () => ({

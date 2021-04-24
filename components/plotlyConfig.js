@@ -72,6 +72,18 @@ export default {
     },
     name: "original points"
   },
+  scatterMain: {
+    x: [],
+    y: [],
+    z: [],
+    mode: "markers",
+    type: "scatter3d",
+    marker: {
+      color: "rgb(255, 140, 0)",
+      size: 4
+    },
+    name: "specified point"
+  },
   surface: {
     x: [],
     y: [],

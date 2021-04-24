@@ -2,20 +2,18 @@ import { getApproximatingFunction } from "./lsm";
 import _ from "lodash";
 
 // получаем координаты точек аппроксимации
-export function getCoordsByLSM(xArray, yArray, zArray, roArray, N) {
-  const { polynome } = getApproximatingFunction(xArray, yArray, zArray, roArray, Number(N));
+export function getPointsCoords(xArray, yArray, polynome) {
+  const xCoords = [];
+  const yCoords = [];
 
-  let xCoords = [];
-  let yCoords = [];
+  const xMax = Math.ceil(_.max(xArray.map(Number))) + 1
+  const xMin = Math.floor(_.min(xArray.map(Number))) - 1
 
-  let xMax = Math.ceil(_.max(xArray.map(Number))) + 1
-  let xMin = Math.floor(_.min(xArray.map(Number))) - 1
+  const yMax = Math.ceil(_.max(yArray.map(Number))) + 1
+  const yMin = Math.floor(_.min(yArray.map(Number))) - 1
 
-  let yMax = Math.ceil(_.max(yArray.map(Number))) + 1
-  let yMin = Math.floor(_.min(yArray.map(Number))) - 1
-
-  let xRange = xMax - xMin
-  let yRange = yMax - yMin
+  const xRange = xMax - xMin
+  const yRange = yMax - yMin
 
   let k = 0;
   for (let i = 0; i < xRange; i++) {
@@ -35,25 +33,23 @@ export function getCoordsByLSM(xArray, yArray, zArray, roArray, N) {
   return {
     X: xCoords,
     Y: yCoords,
-    Z: zCoords
+    Z: zCoords,
   };
 }
 
 // получаем координаты для построения аппроксимирующей поверхности
-export function getSurfaceCoords(xArray, yArray, zArray, roArray, N) {
-  const { polynome } = getApproximatingFunction(xArray, yArray, zArray, roArray, Number(N));
+export function getSurfaceCoords(xArray, yArray, polynome) {
+  const xMax = Math.ceil(_.max(xArray.map(Number))) + 1
+  const xMin = Math.floor(_.min(xArray.map(Number))) - 1
 
-  let xMax = Math.ceil(_.max(xArray.map(Number))) + 1
-  let xMin = Math.floor(_.min(xArray.map(Number))) - 1
+  const yMax = Math.ceil(_.max(yArray.map(Number))) + 1
+  const yMin = Math.floor(_.min(yArray.map(Number))) - 1
 
-  let yMax = Math.ceil(_.max(yArray.map(Number))) + 1
-  let yMin = Math.floor(_.min(yArray.map(Number))) - 1
+  const xRange = xMax - xMin
+  const yRange = yMax - yMin
 
-  let xRange = xMax - xMin
-  let yRange = yMax - yMin
-
-  let xCoords = [];
-  let yCoords = [];
+  const xCoords = [];
+  const yCoords = [];
   const zCoords = [];
 
 
@@ -73,10 +69,9 @@ export function getSurfaceCoords(xArray, yArray, zArray, roArray, N) {
     }
   }
 
-
   return {
     X: xCoords,
     Y: yCoords,
-    Z: zCoords
+    Z: zCoords,
   };
 }
